@@ -5,6 +5,10 @@ class DataMahasiswa extends Controller
     public function index()
     {
         session_start();
+        if (!isset($_SESSION["login"])) {
+            header('Location: ' . BASEURL . 'log');
+            exit;
+        }
         $data['judul'] = 'Daftar Mahasiswa';
         $data['mhs'] = $this->model('Mahasiswa_model')->getAllMahasiswa();
         $data['dosen'] = $this->model('Dosen_model')->getDosenById();
@@ -15,6 +19,10 @@ class DataMahasiswa extends Controller
     public function uploadFoto()
     {
         session_start();
+        if (!isset($_SESSION["login"])) {
+            header('Location: ' . BASEURL . 'log');
+            exit;
+        }
         if ($this->model('Mahasiswa_Model')->uploadFoto($_POST) > 0) {
             echo "
             <script>
